@@ -11,3 +11,5 @@ Tiny sketch plugin for creating slices for selected layers
 ## Coming features
 - [ ] Set padding for slice
 - [ ] Set fixed slice size
+- [ ] Create symbol with selected layer
+  - [ ] Un-nest symbol
