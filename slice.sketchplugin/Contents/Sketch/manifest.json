@@ -3,15 +3,15 @@
   "bundleVersion": 1,
   "commands": [
     {
-      "name": "my-command",
-      "identifier": "my-command-identifier",
-      "script": "my-command.js"
+      "name": "slice",
+      "identifier": "slice-identifier",
+      "script": "slice.js"
     }
   ],
   "menu": {
     "title": "sketch-slicer",
     "items": [
-      "my-command-identifier"
+      "slice-identifier"
     ]
   },
   "version": "0.0.1",
