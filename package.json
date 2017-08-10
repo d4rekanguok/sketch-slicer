@@ -1,0 +1,31 @@
+{
+	"name": "sketch-slicer",
+	"version": "0.0.1",
+	"description": "Slice helper for Sketch",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"build": "skpm build",
+		"publish": "skpm publish"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/d4rekanguok/sketch-slicer.git"
+	},
+	"author": "Derek Nguyen",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/d4rekanguok/sketch-slicer/issues"
+	},
+	"homepage": "https://github.com/d4rekanguok/sketch-slicer#readme",
+	"engines": {
+		"sketch": ">=3.0"
+	},
+	"devDependencies": {
+		"skpm": "^0.10.5"
+	},
+	"skpm": {
+		"manifest": "src/manifest.json",
+		"main": "slice.sketchplugin"
+	}
+}

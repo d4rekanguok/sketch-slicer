@@ -1,0 +1,24 @@
+{
+  "compatibleVersion": 3,
+  "bundleVersion": 1,
+  "commands": [
+    {
+      "name": "my-command",
+      "identifier": "my-command-identifier",
+      "script": "my-command.js"
+    }
+  ],
+  "menu": {
+    "title": "sketch-slicer",
+    "items": [
+      "my-command-identifier"
+    ]
+  },
+  "version": "0.0.1",
+  "description": "Slice helper for Sketch",
+  "homepage": "https://github.com/d4rekanguok/sketch-slicer#readme",
+  "name": "sketch-slicer",
+  "disableCocoaScriptPreprocessor": true,
+  "appcast": "https://raw.githubusercontent.com/d4rekanguok/sketch-slicer/master/.appcast.xml",
+  "author": "Derek Nguyen"
+}
