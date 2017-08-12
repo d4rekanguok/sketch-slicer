@@ -8,7 +8,7 @@ export default function (context) {
     return
   }
 
-  let option = Slice.setting(selected.length, 'Slice with Frame', 'Enter Frame (e.g: 24, or 24/24)');
+  let option = Slice.setting('frame', selected.length);
 
   selected.forEach(layer => {
     Slice.slice(layer, option);

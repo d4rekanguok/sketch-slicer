@@ -124,41 +124,58 @@ export default Slice = {
 
       let set, symbol;
       const setData = alert.viewAtIndex(1).stringValue().split('/').map(data => parseInt(data, 10));
-      switch (setData.length){
-        case 1:
+      if (type === 'padding'){
+        switch (setData.length){
+          case 1:
+            set = {
+              top: setData[0],
+              right: setData[0],
+              bottom: setData[0],
+              left: setData[0]
+            }
+            break;
+          case 2:
+            set = {
+              top: setData[0],
+              bottom: setData[0],
+              right: setData[1],
+              left: setData[1]
+            }
+            break;
+          case 3:
+            set = {
+              top: setData[0],
+              bottom: setData[2],
+              right: setData[1],
+              left: setData[1]
+            }
+            break;
+          case 4:
           set = {
             top: setData[0],
-            right: setData[0],
-            bottom: setData[0],
-            left: setData[0]
-          }
-          break;
-        case 2:
-          set = {
-            top: setData[0],
-            bottom: setData[0],
             right: setData[1],
-            left: setData[1]
-          }
-          break;
-        case 3:
-          set = {
-            top: setData[0],
             bottom: setData[2],
-            right: setData[1],
-            left: setData[1]
+            left: setData[3]
           }
           break;
-        case 4:
-        set = {
-          top: setData[0],
-          right: setData[1],
-          bottom: setData[2],
-          left: setData[3]
         }
-        break;
+      } else if (type === 'frame'){
+        switch (setData.length){
+          case 1:
+            set = {
+              width: setData[0],
+              height: setData[0]
+            }
+            break;
+          case 2:
+            set = {
+              width: setData[0],
+              height: setData[1]
+            }
+        }
       }
 
+      // get symbol switch button state
       if (alert.viewAtIndex(2).state() == 1){
         symbol = true;
       } else {
