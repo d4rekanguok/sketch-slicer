@@ -1,26 +1,98 @@
 export default function (context) {
-  const doc = context.document
-  let selected = context.selection
+  const doc = context.document;
+  let selected = context.selection;
   if (selected.length == 0){
     doc.showMessage('select at least one layer.')
     return
   }
 
-  option = {
-    frame: 32
-  }
+  let option = setting(selected.length, 'Slice with Padding', 'Enter Padding (e.g: 10, or 10/10/10/10)');
 
   selected.forEach(layer => {
-    slice(layer, option)
+    slice(layer, option);
   })
-  doc.showMessage('sliced ' + selected.length + ' layer(s).')
+  doc.showMessage('sliced ' + selected.length + ' layer(s).');
+}
+
+function setting (amount, title, helptext) {
+  let alert = COSAlertWindow.new();
+  alert.setMessageText(title);
+  alert.addButtonWithTitle('Slice '+ amount +' layer(s)');
+  alert.addButtonWithTitle('Cancel');
+  alert.addTextLabelWithValue('Enter Padding (e.g: 10, or 10/10/10/10)');
+  alert.addTextFieldWithValue('0');
+
+  // userInterface.setIcon(NSImage.alloc().initByReferencingFile(context.plugin.urlForResourceNamed("icon.png").path()));
+  // Symbol button
+  let button = NSButton.alloc().initWithFrame(NSMakeRect(0, 0, 200.0, 25.0));
+  button.setButtonType(NSSwitchButton);
+  button.setTitle('Create Symbol')
+
+  alert.addAccessoryView(button)
+
+
+
+  let userInput = alert.runModal()
+  if (userInput == "1000") {
+
+    let padding, symbol;
+    const paddingData = alert.viewAtIndex(1).stringValue().split('/').map(data => parseInt(data, 10));
+    switch (paddingData.length){
+      case 1:
+        padding = {
+          top: paddingData[0],
+          right: paddingData[0],
+          bottom: paddingData[0],
+          left: paddingData[0]
+        }
+        break;
+      case 2:
+        padding = {
+          top: paddingData[0],
+          bottom: paddingData[0],
+          right: paddingData[1],
+          left: paddingData[1]
+        }
+        break;
+      case 3:
+        padding = {
+          top: paddingData[0],
+          bottom: paddingData[2],
+          right: paddingData[1],
+          left: paddingData[1]
+        }
+        break;
+      case 4:
+      padding = {
+        top: paddingData[0],
+        right: paddingData[1],
+        bottom: paddingData[2],
+        left: paddingData[3]
+      }
+      break;
+    }
+
+    if (alert.viewAtIndex(2).state() == 1){
+      symbol = true;
+    } else {
+      symbol = false;
+    }
+
+    return {
+      padding,
+      symbol
+    }
+  }
+
+  return
 }
 
 function slice (layer, option) {
+  log(option)
   const name = layer.name();
   const layers = MSLayerArray.arrayWithLayer(layer);
   const group = MSLayerGroup.groupFromLayers(layers);
-  group.setName(name + '_export')
+  group.setName(name + '_export');
 
   const slice = MSSliceLayer.sliceLayerFromLayer(layer);
   slice.setName(name)
@@ -48,10 +120,10 @@ function slice (layer, option) {
         left: 0
       }, temp_padding)
     }
-    sliceFrame.setX(layerFrame.x() - padding.left)
-    sliceFrame.setY(layerFrame.y() - padding.top)
-    sliceFrame.setWidth(layerFrame.width() + padding.left + padding.right)
-    sliceFrame.setHeight(layerFrame.height() + padding.top + padding.bottom)
+    sliceFrame.setX(layerFrame.x() - padding.left);
+    sliceFrame.setY(layerFrame.y() - padding.top);
+    sliceFrame.setWidth(layerFrame.width() + padding.left + padding.right);
+    sliceFrame.setHeight(layerFrame.height() + padding.top + padding.bottom);
 
   } else if (option.hasOwnProperty('frame')){
 

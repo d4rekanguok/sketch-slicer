@@ -84,9 +84,7 @@ exports['default'] = function (context) {
     return;
   }
 
-  option = {
-    frame: 32
-  };
+  var option = setting(selected.length, 'Slice with Padding', 'Enter Padding (e.g: 10, or 10/10/10/10)');
 
   selected.forEach(function (layer) {
     slice(layer, option);
@@ -94,7 +92,82 @@ exports['default'] = function (context) {
   doc.showMessage('sliced ' + selected.length + ' layer(s).');
 };
 
+function setting(amount, title, helptext) {
+  var alert = COSAlertWindow['new']();
+  alert.setMessageText(title);
+  alert.addButtonWithTitle('Slice ' + amount + ' layer(s)');
+  alert.addButtonWithTitle('Cancel');
+  alert.addTextLabelWithValue('Enter Padding (e.g: 10, or 10/10/10/10)');
+  alert.addTextFieldWithValue('0');
+
+  // userInterface.setIcon(NSImage.alloc().initByReferencingFile(context.plugin.urlForResourceNamed("icon.png").path()));
+  // Symbol button
+  var button = NSButton.alloc().initWithFrame(NSMakeRect(0, 0, 200.0, 25.0));
+  button.setButtonType(NSSwitchButton);
+  button.setTitle('Create Symbol');
+
+  alert.addAccessoryView(button);
+
+  var userInput = alert.runModal();
+  if (userInput == "1000") {
+
+    var padding = void 0,
+        symbol = void 0;
+    var paddingData = alert.viewAtIndex(1).stringValue().split('/').map(function (data) {
+      return parseInt(data, 10);
+    });
+    switch (paddingData.length) {
+      case 1:
+        padding = {
+          top: paddingData[0],
+          right: paddingData[0],
+          bottom: paddingData[0],
+          left: paddingData[0]
+        };
+        break;
+      case 2:
+        padding = {
+          top: paddingData[0],
+          bottom: paddingData[0],
+          right: paddingData[1],
+          left: paddingData[1]
+        };
+        break;
+      case 3:
+        padding = {
+          top: paddingData[0],
+          bottom: paddingData[2],
+          right: paddingData[1],
+          left: paddingData[1]
+        };
+        break;
+      case 4:
+        padding = {
+          top: paddingData[0],
+          right: paddingData[1],
+          bottom: paddingData[2],
+          left: paddingData[3]
+        };
+        break;
+    }
+
+    if (alert.viewAtIndex(2).state() == 1) {
+      symbol = true;
+    } else {
+      symbol = false;
+    }
+
+    return {
+      padding: padding,
+      symbol: symbol
+    };
+  }
+
+  return;
+}
+
 function slice(layer, option) {
+  log(option);
   var name = layer.name();
   var layers = MSLayerArray.arrayWithLayer(layer);
   var group = MSLayerGroup.groupFromLayers(layers);
