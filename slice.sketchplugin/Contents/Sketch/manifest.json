@@ -20,7 +20,7 @@
       "slice-frame"
     ]
   },
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Slice helper for Sketch",
   "homepage": "https://github.com/d4rekanguok/sketch-slicer#readme",
   "name": "sketch-slicer",
