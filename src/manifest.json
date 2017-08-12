@@ -3,15 +3,21 @@
 	"bundleVersion": 1,
 	"commands": [
 		{
-			"name": "slice",
-			"identifier": "slice-identifier",
-			"script": "./slice.js"
+			"name": "Slice with Padding",
+			"identifier": "slice-padding",
+			"script": "./slice-padding.js"
+		},
+		{
+			"name": "Slice with Frame",
+			"identifier": "slice-frame",
+			"script": "./slice-frame.js"
 		}
 	],
 	"menu": {
-		"title": "sketch-slicer",
+		"title": "Slicer",
 		"items": [
-			"slice-identifier"
+			"slice-padding",
+			"slice-frame"
 		]
 	}
 }
