@@ -111,11 +111,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var settingText = {
   padding: {
     title: 'Slice with Padding',
-    helper: 'Enter Padding (e.g: 10, or 10/10/10/10)'
+    helper: 'Enter Padding (e.g: 10, or 10;10;10;10)'
   },
   frame: {
     title: 'Slice with Frame',
-    helper: 'Enter Frame (e.g: 24, or 24/24)'
+    helper: 'Enter Frame (e.g: 24, or 24;24)'
   }
 };
 
@@ -239,7 +239,7 @@ exports['default'] = Slice = {
 
         var set = void 0,
             symbol = void 0;
-        var setData = alert.viewAtIndex(1).stringValue().split('/').map(function (data) {
+        var setData = alert.viewAtIndex(1).stringValue().split(';').map(function (data) {
           return parseInt(data, 10);
         });
         if (type === 'padding') {

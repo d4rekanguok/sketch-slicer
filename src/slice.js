@@ -1,11 +1,11 @@
 const settingText = {
   padding: {
     title: 'Slice with Padding',
-    helper: 'Enter Padding (e.g: 10, or 10/10/10/10)'
+    helper: 'Enter Padding (e.g: 10, or 10;10;10;10)'
   },
   frame: {
     title: 'Slice with Frame',
-    helper: 'Enter Frame (e.g: 24, or 24/24)'
+    helper: 'Enter Frame (e.g: 24, or 24;24)'
   }
 }
 
@@ -123,7 +123,7 @@ export default Slice = {
     if (userInput == "1000") {
 
       let set, symbol;
-      const setData = alert.viewAtIndex(1).stringValue().split('/').map(data => parseInt(data, 10));
+      const setData = alert.viewAtIndex(1).stringValue().split(';').map(data => parseInt(data, 10));
       if (type === 'padding'){
         switch (setData.length){
           case 1:
