@@ -1,17 +1,18 @@
 # sketch-slicer
 
-(In development)
-
-Tiny sketch plugin for creating slices for selected layers
+Sketch plugin for creating slices for selected layers
 
 ## How to use
-- Select a layer
-- Run the plugin
+- Select one or more layers
+- Run one of the 2 commands: Slice with padding or Slice with frame
 
-## Coming features
-- [ ] Set padding for slice
-- [ ] Set fixed slice size
-- [ ] Option to break text
-- [ ] Set export options
-- [ ] Create symbol with selected layer
-  - [ ] Un-nest symbol
+## Slice with Padding
+
+
+###### TODO
+- [x] Set padding for slice
+- [x] Set fixed slice size
+- [ ] Option to break text inside selected layers
+- [x] ~~Set export options~~ Use user's export preset (set it Preference)
+- [x] Create symbol with selected layer
+  - [ ] If selected layer contains symbol, have an option to detach that nested symbol

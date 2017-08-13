@@ -111,11 +111,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var settingText = {
   padding: {
     title: 'Slice with Padding',
-    helper: 'Enter Padding (e.g: 10, or 10;10;10;10)'
+    helper: 'Enter Padding (e.g: 10, or 10;10;10;10)',
+    defaultValue: 0
   },
   frame: {
     title: 'Slice with Frame',
-    helper: 'Enter Frame (e.g: 24, or 24;24)'
+    helper: 'Enter Frame (e.g: 24, or 24;24)',
+    defaultValue: 24
   }
 };
 
@@ -154,10 +156,10 @@ exports['default'] = Slice = {
             left: 0
           }, temp_padding);
         }
-        sliceFrame.setX(layerFrame.x() - padding.left);
-        sliceFrame.setY(layerFrame.y() - padding.top);
-        sliceFrame.setWidth(layerFrame.width() + padding.left + padding.right);
-        sliceFrame.setHeight(layerFrame.height() + padding.top + padding.bottom);
+        sliceFrame.setX(Math.floor(layerFrame.x() - padding.left));
+        sliceFrame.setY(Math.floor(layerFrame.y() - padding.top));
+        sliceFrame.setWidth(Math.ceil(layerFrame.width() + padding.left + padding.right));
+        sliceFrame.setHeight(Math.ceil(layerFrame.height() + padding.top + padding.bottom));
       } else if (option.hasOwnProperty('frame')) {
 
         var frame = void 0;
@@ -200,6 +202,11 @@ exports['default'] = Slice = {
       // resize group
       group.layerDidEndResize();
 
+      //use preset
+      if (option.hasOwnProperty('preset')) {
+        slice.exportOptions().setExportFormats(option.preset);
+      }
+
       // create symbol
       if (option.hasOwnProperty('symbol') && option.symbol) {
         var groups = MSLayerArray.arrayWithLayers([slice, layer]);
@@ -222,15 +229,19 @@ exports['default'] = Slice = {
       alert.setMessageText(settingText[type].title);
       alert.addButtonWithTitle('Slice ' + amount + ' layer(s)');
       alert.addButtonWithTitle('Cancel');
+
       alert.addTextLabelWithValue(settingText[type].helper);
-      alert.addTextFieldWithValue('0');
+      alert.addTextFieldWithValue(settingText[type].defaultValue);
 
       // userInterface.setIcon(NSImage.alloc().initByReferencingFile(context.plugin.urlForResourceNamed("icon.png").path()));
+
+      alert.addTextLabelWithValue('Select an export preset');
+      alert.addAccessoryView(this.presetDropdown());
+
       // Symbol button
       var button = NSButton.alloc().initWithFrame(NSMakeRect(0, 0, 200.0, 25.0));
       button.setButtonType(NSSwitchButton);
       button.setTitle('Create Symbol');
-
       alert.addAccessoryView(button);
 
       var userInput = alert.runModal();
@@ -238,6 +249,7 @@ exports['default'] = Slice = {
         var _ref;
 
         var set = void 0,
+            preset = void 0,
             symbol = void 0;
         var setData = alert.viewAtIndex(1).stringValue().split(';').map(function (data) {
           return parseInt(data, 10);
@@ -293,20 +305,41 @@ exports['default'] = Slice = {
           }
         }
 
+        // get preset option
+        var selectedPresetId = alert.viewAtIndex(3).indexOfSelectedItem();
+        preset = MSExportPreset.allExportPresets()[selectedPresetId].exportFormats();
         // get symbol switch button state
-        if (alert.viewAtIndex(2).state() == 1) {
+        if (alert.viewAtIndex(4).state() == 1) {
           symbol = true;
         } else {
           symbol = false;
         }
 
-        return _ref = {}, _defineProperty(_ref, type, set), _defineProperty(_ref, 'symbol', symbol), _ref;
+        return _ref = {}, _defineProperty(_ref, type, set), _defineProperty(_ref, 'preset', preset), _defineProperty(_ref, 'symbol', symbol), _ref;
       }
 
       return;
     }
 
     return setting;
+  }(),
+
+  presetDropdown: function () {
+    function presetDropdown() {
+
+      var values = [];
+      var presets = MSExportPreset.allExportPresets();
+      for (var i = 0; i < presets.length; i++) {
+        values.push(presets[i].name());
+      }
+
+      var dropdown = NSPopUpButton.alloc().initWithFrame(NSMakeRect(0, 0, 200, 28));
+      dropdown.addItemsWithTitles(values);
+
+      return dropdown;
+    }
+
+    return presetDropdown;
   }()
 };
 

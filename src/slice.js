@@ -1,11 +1,13 @@
 const settingText = {
   padding: {
     title: 'Slice with Padding',
-    helper: 'Enter Padding (e.g: 10, or 10;10;10;10)'
+    helper: 'Enter Padding (e.g: 10, or 10;10;10;10)',
+    defaultValue: 0
   },
   frame: {
     title: 'Slice with Frame',
-    helper: 'Enter Frame (e.g: 24, or 24;24)'
+    helper: 'Enter Frame (e.g: 24, or 24;24)',
+    defaultValue: 24
   }
 }
 
@@ -43,10 +45,10 @@ export default Slice = {
           left: 0
         }, temp_padding)
       }
-      sliceFrame.setX(layerFrame.x() - padding.left);
-      sliceFrame.setY(layerFrame.y() - padding.top);
-      sliceFrame.setWidth(layerFrame.width() + padding.left + padding.right);
-      sliceFrame.setHeight(layerFrame.height() + padding.top + padding.bottom);
+      sliceFrame.setX(Math.floor(layerFrame.x() - padding.left));
+      sliceFrame.setY(Math.floor(layerFrame.y() - padding.top));
+      sliceFrame.setWidth(Math.ceil(layerFrame.width() + padding.left + padding.right));
+      sliceFrame.setHeight(Math.ceil(layerFrame.height() + padding.top + padding.bottom));
 
     } else if (option.hasOwnProperty('frame')){
 
@@ -90,6 +92,11 @@ export default Slice = {
     // resize group
     group.layerDidEndResize();
 
+    //use preset
+    if (option.hasOwnProperty('preset')){
+      slice.exportOptions().setExportFormats(option.preset);
+    }
+
     // create symbol
     if (option.hasOwnProperty('symbol') && option.symbol){
       const groups = MSLayerArray.arrayWithLayers([slice, layer]);
@@ -108,21 +115,25 @@ export default Slice = {
     alert.setMessageText(settingText[type].title);
     alert.addButtonWithTitle('Slice '+ amount +' layer(s)');
     alert.addButtonWithTitle('Cancel');
+
     alert.addTextLabelWithValue(settingText[type].helper);
-    alert.addTextFieldWithValue('0');
+    alert.addTextFieldWithValue(settingText[type].defaultValue);
 
     // userInterface.setIcon(NSImage.alloc().initByReferencingFile(context.plugin.urlForResourceNamed("icon.png").path()));
+
+    alert.addTextLabelWithValue('Select an export preset');
+    alert.addAccessoryView(this.presetDropdown())
+
     // Symbol button
     let button = NSButton.alloc().initWithFrame(NSMakeRect(0, 0, 200.0, 25.0));
     button.setButtonType(NSSwitchButton);
     button.setTitle('Create Symbol')
-
     alert.addAccessoryView(button)
 
     let userInput = alert.runModal()
     if (userInput == "1000") {
 
-      let set, symbol;
+      let set, preset, symbol;
       const setData = alert.viewAtIndex(1).stringValue().split(';').map(data => parseInt(data, 10));
       if (type === 'padding'){
         switch (setData.length){
@@ -175,8 +186,11 @@ export default Slice = {
         }
       }
 
+      // get preset option
+      const selectedPresetId = alert.viewAtIndex(3).indexOfSelectedItem()
+      preset = MSExportPreset.allExportPresets()[selectedPresetId].exportFormats()
       // get symbol switch button state
-      if (alert.viewAtIndex(2).state() == 1){
+      if (alert.viewAtIndex(4).state() == 1){
         symbol = true;
       } else {
         symbol = false;
@@ -184,10 +198,25 @@ export default Slice = {
 
       return {
         [type]: set,
+        preset,
         symbol
       }
     }
 
     return
+  },
+
+  presetDropdown: function() {
+
+    let values = [];
+    let presets = MSExportPreset.allExportPresets();
+    for (var i = 0; i < presets.length; i++) {
+      values.push(presets[i].name());
+    }
+
+    let dropdown = NSPopUpButton.alloc().initWithFrame(NSMakeRect(0, 0, 200, 28));
+    dropdown.addItemsWithTitles(values);
+
+    return dropdown
   }
 }
