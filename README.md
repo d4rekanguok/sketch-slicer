@@ -9,6 +9,9 @@ Sketch plugin for creating slices for selected layers
 ## Slice with Padding
 
 
+## Slice with Frame
+
+
 ###### TODO
 - [x] Set padding for slice
 - [x] Set fixed slice size

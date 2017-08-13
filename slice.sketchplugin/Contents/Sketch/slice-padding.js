@@ -111,12 +111,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var settingText = {
   padding: {
     title: 'Slice with Padding',
-    helper: 'Enter Padding (e.g: 10, or 10;10;10;10)',
+    helper: 'Enter padding (e.g: 10, or 10;10;10;10)',
     defaultValue: 0
   },
   frame: {
     title: 'Slice with Frame',
-    helper: 'Enter Frame (e.g: 24, or 24;24)',
+    helper: 'Enter frame dimension (e.g: 24, or 24;24)',
     defaultValue: 24
   }
 };
