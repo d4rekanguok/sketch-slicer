@@ -1,5 +1,5 @@
 {
-	"name": "sketch-slicer",
+	"name": "Sketch Slicer",
 	"version": "0.1.0",
 	"description": "Slice helper for Sketch",
 	"main": "index.js",

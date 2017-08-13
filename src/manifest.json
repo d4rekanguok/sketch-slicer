@@ -6,19 +6,19 @@
 			"name": "Slice with Padding",
 			"identifier": "slice-padding",
 			"script": "./slice-padding.js",
-			"icon": "sliceWithPadding.png",
-			"description": "Set individual padding"
+			"description": "Set individual padding",
+			"icon": "sliceWithPadding.png"
 		},
 		{
 			"name": "Slice with Frame",
 			"identifier": "slice-frame",
 			"script": "./slice-frame.js",
-			"icon": "sliceWithFrame.png",
-			"description": "Set fixed size frame"
+			"description": "Set fixed size frame",
+			"icon": "sliceWithFrame.png"
 		}
 	],
 	"menu": {
-		"title": "Slicer",
+		"title": "Sketch Slicer",
 		"items": [
 			"slice-padding",
 			"slice-frame"

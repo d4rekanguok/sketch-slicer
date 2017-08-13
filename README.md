@@ -1,8 +1,11 @@
 <img width="96" src="./icon.png">
 
-# sketch-slicer
+# Sketch Slicer
 
 Sketch plugin for creating slices for selected layers
+
+
+<img width="400" src="./intro.png">
 
 ## How to use
 - Select one or more layers

@@ -2,12 +2,14 @@ const settingText = {
   padding: {
     title: 'Slice with Padding',
     helper: 'Enter padding (e.g: 10, or 10;10;10;10)',
-    defaultValue: 0
+    defaultValue: 0,
+    icon: 'sliceWithPadding.png'
   },
   frame: {
     title: 'Slice with Frame',
     helper: 'Enter frame dimension (e.g: 24, or 24;24)',
-    defaultValue: 24
+    defaultValue: 24,
+    icon: 'sliceWithFrame.png'
   }
 }
 
@@ -119,7 +121,7 @@ export default Slice = {
     alert.addTextLabelWithValue(settingText[type].helper);
     alert.addTextFieldWithValue(settingText[type].defaultValue);
 
-    // userInterface.setIcon(NSImage.alloc().initByReferencingFile(context.plugin.urlForResourceNamed("icon.png").path()));
+    alert.setIcon(NSImage.alloc().initByReferencingFile(context.plugin.urlForResourceNamed(settingText[type].icon).path()));
 
     alert.addTextLabelWithValue('Select an export preset');
     alert.addAccessoryView(this.presetDropdown())

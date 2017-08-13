@@ -5,20 +5,16 @@
     {
       "name": "Slice with Padding",
       "identifier": "slice-padding",
-      "script": "slice-padding.js",
-      "icon": "sliceWithPadding.png",
-      "description": "Set individual padding"
+      "script": "slice-padding.js"
     },
     {
       "name": "Slice with Frame",
       "identifier": "slice-frame",
-      "script": "slice-frame.js",
-      "icon": "sliceWithFrame.png",
-      "description": "Set fixed size frame"
+      "script": "slice-frame.js"
     }
   ],
   "menu": {
-    "title": "Slicer",
+    "title": "Sketch Slicer",
     "items": [
       "slice-padding",
       "slice-frame"
@@ -27,7 +23,7 @@
   "version": "0.1.0",
   "description": "Slice helper for Sketch",
   "homepage": "https://github.com/d4rekanguok/sketch-slicer#readme",
-  "name": "sketch-slicer",
+  "name": "Sketch Slicer",
   "disableCocoaScriptPreprocessor": true,
   "appcast": "https://raw.githubusercontent.com/d4rekanguok/sketch-slicer/master/.appcast.xml",
   "author": "Derek Nguyen"
