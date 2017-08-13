@@ -10,7 +10,7 @@
         <description>
           Slice with frame, slice with padding, option to turn selected layers into symbol
         </description>
-        <enclosure url="https://github.com/d4rekanguok/sketch-slicer/archive/master.zip" sparkle:version="0.1.0" />
+        <enclosure url="https://github.com/d4rekanguok/sketch-slicer/releases/download/v0.1.0/slice.sketchplugin.zip" sparkle:version="0.1.0" />
       </item>
   </channel>
 </rss>

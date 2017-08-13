@@ -5,12 +5,16 @@
     {
       "name": "Slice with Padding",
       "identifier": "slice-padding",
-      "script": "slice-padding.js"
+      "script": "slice-padding.js",
+      "description": "Set individual padding",
+      "icon": "sliceWithPadding.png"
     },
     {
       "name": "Slice with Frame",
       "identifier": "slice-frame",
-      "script": "slice-frame.js"
+      "script": "slice-frame.js",
+      "description": "Set fixed size frame",
+      "icon": "sliceWithFrame.png"
     }
   ],
   "menu": {
