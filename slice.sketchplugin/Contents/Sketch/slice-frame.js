@@ -129,7 +129,7 @@ exports['default'] = Slice = {
 
       var name = layer.name();
       var layers = MSLayerArray.arrayWithLayer(layer);
-      var group = MSLayerGroup.groupFromLayers(layers);
+      var group = MSLayerGroup.groupWithLayers(layers);
       group.setName(name + '_export');
 
       var slice = MSSliceLayer.sliceLayerFromLayer(layer);
