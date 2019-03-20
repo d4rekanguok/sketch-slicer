@@ -18,7 +18,7 @@ export default Slice = {
 
     const name = layer.name();
     const layers = MSLayerArray.arrayWithLayer(layer);
-    const group = MSLayerGroup.groupFromLayers(layers);
+    const group = MSLayerGroup.groupWithLayers(layers);
     group.setName(name + '_export');
 
     const slice = MSSliceLayer.sliceLayerFromLayer(layer);
